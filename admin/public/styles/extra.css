@@ -1,0 +1,111 @@
+.admin-tab {
+    background: #fff;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .15);
+    overflow: hidden;
+}
+
+.admin-tab li {
+    float: left;
+    margin: 0 10px;
+}
+
+.admin-tab li a {
+    line-height: 50px;
+    padding: 0 10px;
+    color: #222;
+    font-weight: 600;
+    display: block;
+}
+
+.admin-tab li.active a {
+    box-shadow: 0 2px 0 0 #00a0d2 inset;
+}
+
+.tab-container {
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .15);
+}
+
+.table-sortable tr td:first-child {
+    position: relative;
+    padding-left: 20px;
+}
+
+.table-sortable tr td:first-child:before {
+    content: '';
+    width: 8px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #999;
+    cursor: move;
+}
+
+.menu-container .handle {
+    width: 15px;
+    height: 15px;
+    background: #ccc;
+    position: absolute;
+    top: 15px;
+    right: -15px;
+    cursor: move;
+}
+
+.menu-container form > ul li {
+    background: #f5f5f5;
+    overflow: inherit;
+}
+
+.menu-container form > ul li.ui-sortable-helper {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .2);
+}
+
+.ui-sortable-placeholder {
+    background: #f7ffd8 !important;
+    visibility: visible !important;
+}
+
+.success-msg {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: green;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: 300;
+    color: #fff;
+    z-index: 100;
+}
+.success-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    color: #fff;
+    font-size: 20px;
+}
+.filter {
+    background: #fff;
+    box-shadow: 1px 3px 5px 0 rgba(0, 0, 0, .1);
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+.filter ul li{
+    float: left;
+    padding: 0 15px;
+}
+.filter ul li a {
+    display: block;
+    line-height: 35px;
+    color: #444;
+    padding: 0 5px;
+  
+}
+.filter ul li.active{
+    box-shadow: 0 -2px 0 0 #00a0d2 inset;
+}
