@@ -67,6 +67,9 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="<?= site_url('profil') ?>">Profil</a>
+                            <?php if (session('user_rank') == 1) :  ?>
+                                <a class="dropdown-item" href="<?= admin_url() ?>" target="_blank">Yönetim Paneli</a>
+                            <?php endif; ?>
                             <a class="dropdown-item" href="<?= site_url('cikis') ?>">Çıkış Yap</a>
                         </div>
                     </div>

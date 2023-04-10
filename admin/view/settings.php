@@ -91,6 +91,18 @@
                             </select>
                         </div>
                     </li>
+                    <li>
+                        <label>Blog Title</label>
+                        <div class="form-content">
+                            <input type="text" name="settings[blog_title]" value="<?= setting('blog_title') ?>">
+                        </div>
+                    </li>
+                    <li>
+                        <label>Blog Description</label>
+                        <div class="form-content">
+                            <input type="text" name="settings[blog_description]" value="<?= setting('blog_description') ?>">
+                        </div>
+                    </li>
                 </ul>
             </div>
             <div tab-content>

@@ -42,7 +42,7 @@
         <div class="navbar">
             <ul dropdown>
                 <li>
-                    <a href="#">
+                    <a href="<?= site_url() ?>" target="_blank">
                         <span class="fa fa-home"></span>
                         <span class="title">
                             <?= setting('title') ?>

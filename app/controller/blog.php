@@ -10,8 +10,8 @@ if (route(1) == 'kategori') {
     } else {
 
         $meta = [
-            'title' => setting('title'),
-            'description' => setting('description'),
+            'title' => setting('blog_title'),
+            'description' => setting('blog_description'),
             'keywords' => setting('keywords')
         ];
 
