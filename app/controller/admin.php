@@ -13,46 +13,70 @@ if (!session('user_rank') || session('user_rank') == 3) {
 }
 
 $menus = [
-    'index' => [
+    [
+        'url' => 'index',
         'title' => 'Anasayfa',
         'icon' => 'tachometer'
     ],
-    'users' => [
+    [
+        'url' => 'users',
         'title' => 'Üyeler',
         'icon' => 'user'
-        //        'submenu' => [
-        //            'users' => 'Üyeleri Liste'
-        //        ]
     ],
-    'menu' => [
+    [
+        'url' => 'posts',
+        'title' => 'Blog',
+        'icon' =>  'rss',
+        'submenu' => [
+            [
+                'url' => 'posts',
+                'title' => 'Konular'
+            ],
+            [
+                'url' => 'tags',
+                'title' => 'Etiketler'
+            ],
+            [
+                'url' => 'categories',
+                'title' => 'Kategoriler',
+            ],
+            [
+                'url' => 'comments',
+                'title' => 'Yorumlar',
+            ],
+        ],
+    ],
+    [
+        'url' => 'references',
+        'title' => 'Referanslar',
+        'icon' =>  'photo',
+        'submenu' => [
+            [
+                'url' => 'reference_categories',
+                'title' => 'Kategoriler'
+            ],
+        ],
+    ],
+
+
+
+    [
+        'url' => 'menu',
         'title' => 'Menü Yönetimi',
         'icon' => 'bars'
     ],
-    'contact' => [
+    [
+        'url' => 'contact',
         'title' => 'İletişim Mesajları',
         'icon' => 'envelope'
     ],
-    'posts' => [
-        'title' => 'Konular',
-        'icon' => 'rss'
-    ],
-    'tags' => [
-        'title' => 'Etiketler',
-        'icon' => 'tag'
-    ],
-    'categories' => [
-        'title' => 'Kategoriler',
-        'icon' => 'folder'
-    ],
-    'comments' => [
-        'title' => 'Yorumlar',
-        'icon' => 'comments'
-    ],
-    'pages' => [
+    [
+        'url' => 'pages',
         'title' => 'Sayfalar',
         'icon' => 'file'
     ],
-    'settings' => [
+    [
+        'url' => 'settings',
         'title' => 'Ayarlar',
         'icon' => 'cog'
     ]

@@ -5,6 +5,8 @@ if (route(1) == 'kategori') {
     require controller('blog-category');
 } else if (route(1) == 'arama') {
     require controller('blog-search');
+} else if (route(1) == 'etiket') {
+    require controller('blog-tag');
 } else {
 
     if ($post_url = route(1)) {

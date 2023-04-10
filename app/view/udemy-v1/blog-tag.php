@@ -2,11 +2,11 @@
 
 <section class="jumbotron text-center">
     <div class="container">
-        <h1><?= $category['category_name'] ?></h1>
+        <h1><?= $tag['tag_name'] ?></h1>
         <div class="breadcrumb-custom">
             <a href="<?= site_url() ?>">Anasayfa</a> /
             <a href="<?= site_url('blog') ?>">Blog</a> /
-            <a href="<?= site_url('blog/kategori/' . $category['category_url']) ?>" class="active"><?= $category['category_name'] ?></a>
+            <a href="<?= site_url('blog/etiket/' . $tag['tag_url']) ?>" class="active"><?= $tag['tag_name'] ?></a>
         </div>
     </div>
 </section>
@@ -41,14 +41,14 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item">
-                                    <a class="page-link" href="<?= site_url('blog/kategori/' . $category['category_url'] . '?' . $pageParam . '=' . $db->prevPage()) ?>" aria-label="Previous">
+                                    <a class="page-link" href="<?= site_url('blog/etiket/' . $tag['tag_url'] . '?' . $pageParam . '=' . $db->prevPage()) ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                         <span class="sr-only">Previous</span>
                                     </a>
                                 </li>
-                                <?= $db->showPagination(site_url('blog/kategori/' . $category['category_url'] . '?' . $pageParam . '=[page]'), 'active', true) ?>
+                                <?= $db->showPagination(site_url('blog/etiket/' . $tag['tag_url'] . '?' . $pageParam . '=[page]'), 'active', true) ?>
                                 <li class="page-item">
-                                    <a class="page-link" href="<?= site_url('blog/kategori/' . $category['category_url'] . '?' . $pageParam . '=' . $db->nextPage()) ?>" aria-label="Next">
+                                    <a class="page-link" href="<?= site_url('blog/etiket/' . $tag['tag_url'] . '?' . $pageParam . '=' . $db->nextPage()) ?>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                         <span class="sr-only">Next</span>
                                     </a>
@@ -60,7 +60,7 @@
 
             <?php else : ?>
                 <div class="alert alert-warning">
-                    Blog için henüz hiç yazı eklenmedi, lütfen daha sonra kontrol edin!
+                    <?= $tag['tag_name'] ?> etiketiyle ilgili hiçbir konu paylaşılmadı.
                 </div>
             <?php endif; ?>
 

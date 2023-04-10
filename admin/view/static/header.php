@@ -91,8 +91,8 @@
 
             <ul>
                 <?php foreach ($menus as $mainUrl => $menu) : ?>
-                    <li class="<?= (route(1) == $mainUrl) || isset($menu['submenu'][route(1)]) ? 'active' : null ?>">
-                        <a href="<?= admin_url($mainUrl) ?>">
+                    <li class="<?= (route(1) == $menu['url']) || (isset($menu['submenu']) && array_search(route(1), array_column($menu['submenu'], 'url'))) ? 'active' : null ?>">
+                        <a href="<?= admin_url($menu['url']) ?>">
                             <span class="fa fa-<?= $menu['icon'] ?>"></span>
                             <span class="title">
                                 <?= $menu['title'] ?>
@@ -100,10 +100,10 @@
                         </a>
                         <?php if (isset($menu['submenu'])) : ?>
                             <ul class="sub-menu">
-                                <?php foreach ($menu['submenu'] as $url => $title) : ?>
-                                    <li>
-                                        <a href="<?= admin_url($url) ?>">
-                                            <?= $title ?>
+                                <?php foreach ($menu['submenu'] as $k => $submenu) : ?>
+                                    <li class="<?= route(1) == $submenu['url'] ? 'active' : null ?>">
+                                        <a href="<?= admin_url($submenu['url']) ?>">
+                                            <?= $submenu['title'] ?>
                                         </a>
                                     </li>
                                 <?php endforeach; ?>

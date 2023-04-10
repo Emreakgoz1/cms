@@ -60,4 +60,21 @@ class Blog
             ->where('post_status', 1)
             ->first();*/
     }
+    public static function getRandomTags($limit = 10)
+    {
+
+        global $db;
+        $query = $db->prepare('SELECT * FROM tags ORDER BY RAND() LIMIT :limit');
+        $query->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $query->execute();
+        $row = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $row;
+
+        // return $db->from('tags')
+        //  ->limit(0, $limit)
+        //    ->all();
+
+        // $query = $db->prepare('SELECT * FROM tags ')
+
+    }
 }

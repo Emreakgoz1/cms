@@ -83,15 +83,9 @@
                 <i class="fa fa-hashtag"></i>
                 Etiketler
             </h4>
-            <a href="#" class="badge badge-light badge-pill">html5 video</a>
-            <a href="#" class="badge badge-light badge-pill">html5 audio</a>
-            <a href="#" class="badge badge-light badge-pill">css ie7</a>
-            <a href="#" class="badge badge-light badge-pill">jquery dersleri</a>
-            <a href="#" class="badge badge-light badge-pill">css3 calc()</a>
-            <a href="#" class="badge badge-light badge-pill">php array_shift()</a>
-            <a href="#" class="badge badge-light badge-pill">gökhan toy</a>
-            <a href="#" class="badge badge-light badge-pill">aile</a>
-            <a href="#" class="badge badge-light badge-pill">hayat</a>
+            <?php foreach (Blog::getRandomTags(6) as $tag) : ?>
+                <a href="<?= site_url('blog/etiket/' . $tag['tag_url']) ?>" class="badge badge-light badge-pill"><?= $tag['tag_name'] ?></a>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
