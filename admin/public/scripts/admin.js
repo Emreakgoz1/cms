@@ -158,11 +158,11 @@ $(function () {
         e.preventDefault();
     });
 
-    //$('.tagsinput').tagsInput({
-    //    placeholder: 'Etiket Ekleyin',
-    //    'autocomplete': {
-    //        source: tags
-    //    }
-    //}); 
+    $('.tagsinput').tagsInput({
+        placeholder: 'Etiket Ekleyin',
+        'autocomplete': {
+            source: tags
+        }
+    });
 
 });

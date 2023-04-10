@@ -47,7 +47,7 @@ $menus = [
         ],
     ],
     [
-        'url' => 'references',
+        'url' => 'reference',
         'title' => 'Referanslar',
         'icon' =>  'photo',
         'submenu' => [
