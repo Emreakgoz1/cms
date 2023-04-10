@@ -14,6 +14,7 @@
         <thead>
             <tr>
                 <th>Referans</th>
+                <th>Kategoriler</th>
                 <th class="hide">Eklenme Tarihi</th>
                 <th>İşlemler</th>
             </tr>
@@ -26,13 +27,18 @@
                         <?= $row['reference_title'] ?>
 
                     </td>
+
+                    <td>
+                        <?= $row['categories'] ?>
+
+                    </td>
+
                     <td class="hide" title="<?= $row['reference_date'] ?>">
                         <?= timeConvert($row['reference_date']) ?>
                     </td>
 
                     <td>
-                        <a href="<?= site_url('sayfa/' . $row['post_url']) ?>" class="btn" target="_blank">Görüntüle</a>
-                        <a href="<?= admin_url('edit-reference?id=' . $row['reference_id']) ?>" class="btn">Düzenle</a>
+                        <a href="<?= site_url('sayfa/' . $row['reference_url']) ?>" class="btn" target="_blank">Görüntüle</a>
                         <a onclick="return confirm('Silme işlemine devam ediyorsunuz?')" href="<?= admin_url('delete?table=reference&column=reference_id&id=' . $row['reference_id']) ?>" class="btn">Sil</a>
                     </td>
                 </tr>

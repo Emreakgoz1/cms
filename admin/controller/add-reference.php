@@ -1,11 +1,14 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-use Verot\Upload\Upload;
 
-require_once 'upload.php';
+//print_r(PATH);
+require_once PATH . '/app/classes/upload.php';
 
-
+use Upload;
 
 $categories = $db->from('reference_categories')
     ->orderby('category_name', 'ASC')
@@ -28,10 +31,14 @@ if (post('submit')) {
         if ($query) {
             $error = 'Bu referans adıyla bir referans zaten mevcut! Kontrol edin!';
         } else {
-
-            if (mkdir(PATH . '/upload/reference/' . $data['reference_url'], 0777)) {
+            rmdir(PATH . '/upload/reference/' . $data['reference_url']);
+            if (@mkdir(PATH . '/upload/reference/' . $data['reference_url'], 0777)) {
 
                 $handle = new Upload($_FILES['reference_image']);
+                //echo '<pre>';
+                //print_r($handle);
+                //echo '</pre>';
+                //exit();
                 if ($handle->uploaded) {
                     $handle->file_new_name_body = $data['reference_url'] . '_' . rand(1, 9999);
                     $handle->image_ratio_crop = true;
