@@ -52,7 +52,7 @@ $menus = [
         'icon' =>  'photo',
         'submenu' => [
             [
-                'url' => 'reference_categories',
+                'url' => 'reference-categories',
                 'title' => 'Kategoriler'
             ],
         ],
