@@ -9,13 +9,12 @@
  * @web http://www.mtkocak.com
  * @mail mtkocak@gmail.com
  * @date 13 April 2014
- * @update 20 March 2019
+ * @update 10 November 2018
  * @author Midori Koçak
  * @update 2 July 2015
  */
 class basicdb extends \PDO
 {
-    private $dbName;
     private $type;
     private $sql;
     private $unionSql;
@@ -34,18 +33,13 @@ class basicdb extends \PDO
     private $paginationLimit;
     private $html;
     public $debug = false;
-    public $paginationItem = '<li class="[active]">
-        <a href="[url]">[text]</a>
-    </li>';
     public $reference = [
         'NOW()'
     ];
-
     public function __construct($host, $dbname, $username, $password, $charset = 'utf8')
     {
         try {
-            parent::__construct('mysql:host=' . $host . ';dbname=' . $dbname, $username, $password = 'root');
-            $this->dbName = $dbname;
+            parent::__construct('mysql:host=' . $host . ';dbname=' . $dbname, $username, $password);
             $this->query('SET CHARACTER SET ' . $charset);
             $this->query('SET NAMES ' . $charset);
             $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -54,27 +48,23 @@ class basicdb extends \PDO
             $this->showError($e);
         }
     }
-
     public function from($tableName)
     {
-        $this->sql = 'SELECT * FROM ' . $tableName;
+        $this->sql = 'SELECT * FROM `' . $tableName . '`';
         $this->tableName = $tableName;
         return $this;
     }
-
     public function select($columns)
     {
         $this->sql = str_replace(' * ', ' ' . $columns . ' ', $this->sql);
         return $this;
     }
-
     public function union()
     {
         $this->type = 'union';
         $this->unionSql = $this->sql;
         return $this;
     }
-
     public function group(Closure $fn)
     {
         static $group_id = 0;
@@ -84,7 +74,6 @@ class basicdb extends \PDO
         $this->grouped = false;
         return $this;
     }
-
     public function where($column, $value = '', $mark = '=', $logical = '&&')
     {
         $this->where[] = [
@@ -97,7 +86,6 @@ class basicdb extends \PDO
         ];
         return $this;
     }
-
     public function having($column, $value = '', $mark = '=', $logical = '&&')
     {
         $this->having[] = [
@@ -110,55 +98,46 @@ class basicdb extends \PDO
         ];
         return $this;
     }
-
     public function or_where($column, $value, $mark = '=')
     {
         $this->where($column, $value, $mark, '||');
         return $this;
     }
-
     public function or_having($column, $value, $mark = '=')
     {
         $this->having($column, $value, $mark, '||');
         return $this;
     }
-
     public function join($targetTable, $joinSql, $joinType = 'inner')
     {
         $this->join[] = ' ' . strtoupper($joinType) . ' JOIN ' . $targetTable . ' ON ' . sprintf($joinSql, $targetTable, $this->tableName);
         return $this;
     }
-
     public function leftJoin($targetTable, $joinSql)
     {
         $this->join($targetTable, $joinSql, 'left');
         return $this;
     }
-
     public function rightJoin($targetTable, $joinSql)
     {
         $this->join($targetTable, $joinSql, 'right');
         return $this;
     }
-
     public function orderBy($columnName, $sort = 'ASC')
     {
-        $this->orderBy = ' ORDER BY ' . $columnName . ' ' . $sort;
+        $this->orderBy = ' ORDER BY ' . $columnName . ' ' . strtoupper($sort);
         return $this;
     }
-
     public function groupBy($columnName)
     {
         $this->groupBy = ' GROUP BY ' . $columnName;
         return $this;
     }
-
     public function limit($start, $limit)
     {
         $this->limit = ' LIMIT ' . $start . ',' . $limit;
         return $this;
     }
-
     public function all()
     {
         try {
@@ -169,7 +148,6 @@ class basicdb extends \PDO
             $this->showError($e);
         }
     }
-
     public function first()
     {
         try {
@@ -179,7 +157,6 @@ class basicdb extends \PDO
             $this->showError($e);
         }
     }
-
     public function generateQuery()
     {
         if ($this->join) {
@@ -210,7 +187,6 @@ class basicdb extends \PDO
         $query = $this->query($this->sql);
         return $query;
     }
-
     private function get_where($conditionType = 'where')
     {
         if (
@@ -249,13 +225,13 @@ class basicdb extends \PDO
                             $where = $item['column'] . ' NOT BETWEEN "' . $item['value'][0] . '" AND "' . $item['value'][1] . '"';
                             break;
                         case 'FIND_IN_SET':
-                            $where = 'FIND_IN_SET(' . $item['column'] . ', ' . $item['value'] . ')';
+                            $where = 'FIND_IN_SET("' . $item['column'] . '", ' . $item['value'] . ')';
                             break;
                         case 'FIND_IN_SET_REVERSE':
-                            $where = 'FIND_IN_SET(' . $item['value'] . ', ' . $item['column'] . ')';
+                            $where = 'FIND_IN_SET(' . $item['column'] . ', "' . $item['value'] . '")';
                             break;
                         case 'IN':
-                            $where = $item['column'] . ' IN("' . (is_array($item['value']) ? implode('", "', $item['value']) : $item['value']) . '")';
+                            $where = $item['column'] . ' IN(' . (is_array($item['value']) ? implode(', ', $item['value']) : $item['value']) . ')';
                             break;
                         case 'NOT IN':
                             $where = $item['column'] . ' NOT IN(' . (is_array($item['value']) ? implode(', ', $item['value']) : $item['value']) . ')';
@@ -306,21 +282,16 @@ class basicdb extends \PDO
             $this->{$conditionType} = null;
         }
     }
-
     public function insert($tableName)
     {
         $this->sql = 'INSERT INTO ' . $tableName;
         return $this;
     }
-
     public function set($data, $value = null)
     {
         try {
             if ($value) {
                 if (strstr($value, '+')) {
-                    $this->sql .= ' SET ' . $data . ' = ' . $data . ' ' . $value;
-                    $executeValue = null;
-                } elseif (strstr($value, '-')) {
                     $this->sql .= ' SET ' . $data . ' = ' . $data . ' ' . $value;
                     $executeValue = null;
                 } else {
@@ -330,7 +301,6 @@ class basicdb extends \PDO
                     ];
                 }
             } else {
-
                 $this->sql .= ' SET ' . implode(', ', array_map(function ($item) {
                     return $item . ' = :' . $item;
                 }, array_keys($data)));
@@ -345,24 +315,20 @@ class basicdb extends \PDO
             $this->showError($e);
         }
     }
-
     public function lastId()
     {
         return $this->lastInsertId();
     }
-
     public function update($tableName)
     {
         $this->sql = 'UPDATE ' . $tableName;
         return $this;
     }
-
     public function delete($tableName)
     {
         $this->sql = 'DELETE FROM ' . $tableName;
         return $this;
     }
-
     public function done()
     {
         try {
@@ -374,7 +340,6 @@ class basicdb extends \PDO
             $this->showError($e);
         }
     }
-
     public function total()
     {
         if ($this->join) {
@@ -398,7 +363,6 @@ class basicdb extends \PDO
         $query = $this->query($this->sql)->fetch(parent::FETCH_ASSOC);
         return $query['total'];
     }
-
     public function pagination($totalRecord, $paginationLimit, $pageParamName)
     {
         $this->paginationLimit = $paginationLimit;
@@ -411,104 +375,86 @@ class basicdb extends \PDO
             'limit' => $this->paginationLimit
         ];
     }
-
     public function showPagination($url, $class = 'active')
     {
         if ($this->totalRecord > $this->paginationLimit) {
             for ($i = $this->page - 5; $i < $this->page + 5 + 1; $i++) {
                 if ($i > 0 && $i <= $this->pageCount) {
-                    $this->html .= str_replace(
-                        ['[active]', '[text]', '[url]'],
-                        [($i == $this->page ? $class : null), $i, str_replace('[page]', $i, $url)],
-                        $this->paginationItem
-                    );
+                    $this->html .= '<li class="';
+                    $this->html .= ($i == $this->page ? $class : null);
+                    $this->html .= '"><a href="' . str_replace('[page]', $i, $url) . '">' . $i . '</a>';
                 }
             }
             return $this->html;
         }
     }
-
     public function nextPage()
     {
         return ($this->page + 1 < $this->pageCount ? $this->page + 1 : $this->pageCount);
     }
-
     public function prevPage()
     {
         return ($this->page - 1 > 0 ? $this->page - 1 : 1);
     }
-
     public function getSqlString()
     {
         $this->get_where('where');
         $this->get_where('having');
         return $this->errorTemplate($this->sql, __CLASS__ . ' SQL Sorgusu');
     }
-
     public function between($column, $values = [])
     {
         $this->where($column, $values, 'BETWEEN');
         return $this;
     }
-
     public function notBetween($column, $values = [])
     {
         $this->where($column, $values, 'NOT BETWEEN');
         return $this;
     }
-
     public function findInSet($column, $value)
     {
         $this->where($column, $value, 'FIND_IN_SET');
         return $this;
     }
-
     public function findInSetReverse($column, $value)
     {
         $this->where($column, $value, 'FIND_IN_SET_REVERSE');
         return $this;
     }
-
     public function in($column, $value)
     {
         $this->where($column, $value, 'IN');
         return $this;
     }
-
     public function notIn($column, $value)
     {
         $this->where($column, $value, 'NOT IN');
         return $this;
     }
-
     public function like($column, $value)
     {
         $this->where($column, $value, 'LIKE');
         return $this;
     }
-
     public function notLike($column, $value)
     {
         $this->where($column, $value, 'NOT LIKE');
         return $this;
     }
-
     public function soundex($column, $value)
     {
         $this->where($column, $value, 'SOUNDEX');
         return $this;
     }
-
     public function __call($name, $args)
     {
         die($name . '  metodu ' . __CLASS__ . ' sınıfı içinde bulunamadı.');
     }
-
     private function showError(PDOException $error)
     {
         $this->errorTemplate($error->getMessage());
     }
-
     private function errorTemplate($errorMsg, $title = null)
     {
 ?>
@@ -541,48 +487,5 @@ class basicdb extends \PDO
             }
         </style>
 <?php
-    }
-
-    /**
-     * Belirtilen tabloyu temizler
-     *
-     * @param $tableName
-     * @return bool|PDOStatement
-     */
-    public function truncate($tableName)
-    {
-        return $this->query('TRUNCATE TABLE ' . $this->dbName . '.' . $tableName);
-    }
-
-    /**
-     * Tüm tabloları temizler
-     *
-     * @param array $dbs
-     * @return mixed
-     */
-    public function truncateAll($dbs = [])
-    {
-        if (count($dbs) == 0) $dbs[] = $this->dbName;
-        $query = $this->from('INFORMATION_SCHEMA.TABLES')
-            ->select('CONCAT("TRUNCATE TABLE `", table_schema, "`.`", TABLE_NAME, "`;") as query, TABLE_NAME as tableName')
-            ->in('table_schema', implode(',', $dbs))
-            ->all();
-        $this->query('SET FOREIGN_KEY_CHECKS=0;')->fetch();
-        foreach ($query as $row) {
-            $this->setAutoIncrement($row['tableName']);
-            $this->query($row['query'])->fetch();
-        }
-        $this->query('SET FOREIGN_KEY_CHECKS=1;')->fetch();
-    }
-
-    /**
-     * Belirtilen tablonun auto_increment değerini ayarlar
-     *
-     * @param $tableName
-     * @return mixed
-     */
-    public function setAutoIncrement($tableName, $ai = 1)
-    {
-        return $this->query("ALTER TABLE `{$tableName}` AUTO_INCREMENT = {$ai}")->fetch();
     }
 }

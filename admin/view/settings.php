@@ -55,6 +55,9 @@
             <li>
                 <a href="#">Yorum</a>
             </li>
+            <li>
+                <a href="#">Sayfalama</a>
+            </li>
         </ul>
     </div>
     <form action="" method="post" class="form label">
@@ -101,6 +104,18 @@
                         <label>Blog Description</label>
                         <div class="form-content">
                             <input type="text" name="settings[blog_description]" value="<?= setting('blog_description') ?>">
+                        </div>
+                    </li>
+                    <li>
+                        <label>Blog Arama Title</label>
+                        <div class="form-content">
+                            <input type="text" name="settings[blog_search_title]" value="<?= setting('blog_search_title') ?>">
+                        </div>
+                    </li>
+                    <li>
+                        <label>Blog Arama Description</label>
+                        <div class="form-content">
+                            <input type="text" name="settings[blog_search_description]" value="<?= setting('blog_search_description') ?>">
                         </div>
                     </li>
                 </ul>
@@ -212,6 +227,29 @@
                         </div>
                     </li>
 
+                </ul>
+            </div>
+            <div tab-content>
+                <h1>Pagination Ayarları</h1>
+                <ul>
+                    <li>
+                        <label>Blog Sayfalama</label>
+                        <div class="form-content">
+                            <input type="text" name="settings[blog_pagination]" value="<?= setting('blog_pagination') ?>">
+                        </div>
+                    </li>
+                    <li>
+                        <label>Blog Kategori Sayfalama</label>
+                        <div class="form-content">
+                            <input type="text" name="settings[blog_category_pagination]" value="<?= setting('blog_category_pagination') ?>">
+                        </div>
+                    </li>
+                    <li>
+                        <label>Blog Arama Sayfalama</label>
+                        <div class="form-content">
+                            <input type="text" name="settings[blog_search_pagination]" value="<?= setting('blog_search_pagination') ?>">
+                        </div>
+                    </li>
                 </ul>
             </div>
             <ul>

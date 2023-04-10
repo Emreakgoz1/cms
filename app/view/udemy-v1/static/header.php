@@ -56,8 +56,8 @@
                         </li>
                     <?php endforeach; ?>
                 </ul>
-                <form class="form-inline my-2 my-lg-0 mr-3">
-                    <input class="form-control mr-sm-2" type="search" placeholder="<?= setting('search_placeholder') ?>" aria-label="Search">
+                <form action="<?= site_url('blog/arama') ?>" method="get" class="form-inline my-2 my-lg-0 mr-3">
+                    <input class="form-control mr-sm-2" name="q" value="<?= get('q') ?>" type="search" placeholder="<?= setting('search_placeholder') ?>" aria-label="Search">
                     <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Ara</button>
                 </form>
                 <?php if (session('user_id')) : ?>
