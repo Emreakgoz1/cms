@@ -13,6 +13,7 @@
     <table>
         <thead>
             <tr>
+                <th>&nbsp;</th>
                 <th>Referans</th>
                 <th>Kategoriler</th>
                 <th class="hide">Eklenme Tarihi</th>
@@ -22,6 +23,10 @@
         <tbody>
             <?php foreach ($query as $row) : ?>
                 <tr>
+                    <td width="80">
+                        <img src="<?= site_url('upload/reference/' . $row['reference_url'] . '/' . $row['reference_image']) ?>" alt="" height="80">
+
+                    </td>
 
                     <td>
                         <?= $row['reference_title'] ?>
@@ -38,7 +43,7 @@
                     </td>
 
                     <td>
-                        <a href="<?= site_url('sayfa/' . $row['reference_url']) ?>" class="btn" target="_blank">Görüntüle</a>
+                        <a href="<?= admin_url('edit-reference?id=' . $row['reference_id']) ?>" class="btn">Düzenle</a>
                         <a onclick="return confirm('Silme işlemine devam ediyorsunuz?')" href="<?= admin_url('delete?table=reference&column=reference_id&id=' . $row['reference_id']) ?>" class="btn">Sil</a>
                     </td>
                 </tr>
