@@ -44,6 +44,7 @@
 
                     <td>
                         <a href="<?= admin_url('edit-reference?id=' . $row['reference_id']) ?>" class="btn">Düzenle</a>
+                        <a href="<?= admin_url('reference-images?id=' . $row['reference_id']) ?>" class="btn">Resimler</a>
                         <a onclick="return confirm('Silme işlemine devam ediyorsunuz?')" href="<?= admin_url('delete?table=reference&column=reference_id&id=' . $row['reference_id']) ?>" class="btn">Sil</a>
                     </td>
                 </tr>
