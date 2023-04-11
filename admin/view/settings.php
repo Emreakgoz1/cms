@@ -107,6 +107,18 @@
                         </div>
                     </li>
                     <li>
+                        <label>Referanslar Title</label>
+                        <div class="form-content">
+                            <input type="text" name="settings[references_title]" value="<?= setting('references_title') ?>">
+                        </div>
+                    </li>
+                    <li>
+                        <label>Referanslar Description</label>
+                        <div class="form-content">
+                            <input type="text" name="settings[references_description]" value="<?= setting('references_description') ?>">
+                        </div>
+                    </li>
+                    <li>
                         <label>Blog Arama Title</label>
                         <div class="form-content">
                             <input type="text" name="settings[blog_search_title]" value="<?= setting('blog_search_title') ?>">
