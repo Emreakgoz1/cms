@@ -2,7 +2,7 @@
 
 $settings["title"] = "Emre Akgöz";
 $settings["description"] = "bu bir test açıklaması";
-$settings["keywords"] = "tayfun, erbilen, udemy";
+$settings["keywords"] = "emre, akgoz, udemy";
 $settings["theme"] = "udemy-v1";
 $settings["blog_title"] = "Teknoloji Bloğu";
 $settings["blog_description"] = "Blog Açıklaması";
