@@ -60,7 +60,7 @@
                             <a href="<?= admin_url('edit-reference-image?id=' . $image['image_id']) ?>" class="btn">Düzenle</a>
 
 
-                            <a onclick="return confirm('Silme işlemine devam ediyorsunuz?')" href="<?= admin_url('delete?table=referenece_images&column=image_id&id=' . $image['image_id']) ?>" class="btn">Sil</a>
+                            <a onclick="return confirm('Silme işlemine devam ediyorsunuz?')" href="<?= admin_url('delete?table=reference_images&column=image_id&id=' . $image['image_id']) ?>" class="btn">Sil</a>
 
                         </td>
                     </tr>

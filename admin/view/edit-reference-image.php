@@ -58,21 +58,21 @@
                     <li>
                         <label>Resim Başlığı</label>
                         <div class="form-content">
-                            <input type="text" name="image_content[title]">
+                            <input type="text" name="image_content[title]" value="<?= isset($content['title']) ? $content['title'] : null ?>">
                         </div>
                     </li>
                     <li>
                         <label>Resim Açıklaması</label>
                         <div class="form-content">
-                            <textarea name="image_content[description]" cols="30" rows="10"></textarea>
+                            <textarea name="image_content[description]" cols="30" rows="10"><?= isset($content['description']) ? $content['description'] : null ?></textarea>
                         </div>
                     </li>
                     <li>
                         <label>Resmi Değiştir</label>
                         <div class="form-content">
                             <input type="file" name="image">
-                            <div style="padding-top: 10px;">
-                                <img src="<?= site_url('upload/reference' . $row['reference_url'] . '/' . $row['image_url']) ?>" alt="" width="400">
+                            <div style="padding-top: 10px">
+                                <img src="<?= site_url('upload/reference/' . $row['reference_url'] . '/' . $row['image_url']) ?>" alt="" width="400">
                             </div>
                         </div>
                     </li>
